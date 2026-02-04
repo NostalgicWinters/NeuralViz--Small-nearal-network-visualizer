@@ -1,6 +1,9 @@
 import math
 
 class Value:
+
+    _id = 0
+
     def __init__(self, data, _children = (), _op='', label=''):
         self.data= data
         self._prev = set(_children)
@@ -8,6 +11,8 @@ class Value:
         self.label = label
         self.grad = 0.0
         self._backward = lambda : None
+        self.id = Value._id 
+        Value._id +=1
 
     def __repr__(self):
         return f'Value({self.data})'
