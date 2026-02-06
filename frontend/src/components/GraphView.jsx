@@ -2,6 +2,11 @@ import { useEffect, useState } from "react";
 import ReactFlow from "reactflow";
 import ELK from "elkjs/lib/elk.bundled.js";
 import "reactflow/dist/style.css";
+import ValueNode from "./ValueNode";
+
+const nodeTypes = {
+  value: ValueNode
+};
 
 const elk = new ELK();
 
@@ -23,8 +28,8 @@ function GraphView({ data }) {
         },
         children: data.nodes.map(n => ({
           id: String(n.id),
-          width: 80,
-          height: 40
+          width: 140,   // ⬅ bigger for card-style node
+          height: 90
         })),
         edges: data.edges.map((e, i) => ({
           id: `e${i}`,
@@ -36,18 +41,34 @@ function GraphView({ data }) {
       const layoutedGraph = await elk.layout(elkGraph);
 
       setNodes(
-        layoutedGraph.children.map(n => ({
-          id: n.id,
-          position: { x: n.x, y: n.y },
-          data: { label: n.id }
-        }))
+        layoutedGraph.children.map(n => {
+          const original = data.nodes.find(
+            x => String(x.id) === n.id
+          );
+
+          return {
+            id: n.id,
+            type: "value",           
+            position: { x: n.x, y: n.y },
+            data: {
+              value: original.value,
+              grad: original.grad,
+              op: original.op
+            }
+          };
+        })
       );
 
       setEdges(
         layoutedGraph.edges.map(e => ({
           id: e.id,
           source: e.sources[0],
-          target: e.targets[0]
+          target: e.targets[0],
+          animated: true,
+          style: {
+            strokeWidth: 2,
+            stroke: "#64748b"
+          }
         }))
       );
     };
@@ -56,8 +77,13 @@ function GraphView({ data }) {
   }, [data]);
 
   return (
-    <div className="p-10" style={{ height: "100%", width: "100%" }}>
-      <ReactFlow nodes={nodes} edges={edges} fitView />
+    <div style={{ height: "100%", width: "100%" }}>
+      <ReactFlow
+        nodes={nodes}
+        edges={edges}
+        nodeTypes={nodeTypes}
+        fitView
+      />
     </div>
   );
 }
