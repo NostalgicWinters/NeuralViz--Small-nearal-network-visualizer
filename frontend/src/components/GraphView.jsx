@@ -56,7 +56,7 @@ function GraphView({ data }) {
   }, [data]);
 
   return (
-    <div style={{ height: "100%", width: "100%" }}>
+    <div className="p-10" style={{ height: "100%", width: "100%" }}>
       <ReactFlow nodes={nodes} edges={edges} fitView />
     </div>
   );
