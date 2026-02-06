@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import InputBox from './components/InputBox'
+import GraphView from './components/GraphView'
 
 function App() {
 
@@ -11,6 +12,10 @@ function App() {
 
       <div>
         <InputBox />
+      </div>
+
+      <div>
+        <GraphView />
       </div>
     </div>
 
