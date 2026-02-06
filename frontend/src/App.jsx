@@ -56,7 +56,7 @@ function App() {
       </div>
 
       {/* Graph */}
-      <div className="w-[90%] h-[90vh] bg-amber-50 overflow-auto">
+      <div className="w-[90%] h-[90vh] bg-amber-50 overflow-auto mb-24">
         {graphData && <GraphView data={graphData} />}
       </div>
 
