@@ -4,6 +4,10 @@ A neural network computation graph visualizer built on top of a custom micrograd
 
 This project helps you see what’s actually happening inside a neural network — values flowing forward and gradients flowing backward.
 
+## 🎥 Demo
+
+![Neural Network Visualizer Demo](demo.gif)
+
 ## Motivation
 
 Modern deep learning frameworks abstract away the fundamentals of automatic differentiation and backpropagation.
